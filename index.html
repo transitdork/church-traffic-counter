@@ -7,87 +7,120 @@
   <style>
     body {
       font-family: sans-serif;
+      margin: 0;
       padding: 10px;
       background: #f5f5f5;
     }
-    .section {
-      margin-bottom: 20px;
-    }
-    .section h2 {
+    h1 {
+      text-align: center;
       margin-bottom: 10px;
     }
+    .section {
+      margin-bottom: 10px;
+    }
+    .section h2 {
+      margin-bottom: 6px;
+      font-size: 1.1rem;
+    }
     .button-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
     }
     button {
-      padding: 12px;
-      font-size: 1rem;
+      flex: 1 0 calc(33.333% - 12px);
+      max-width: calc(33.333% - 12px);
+      padding: 10px;
+      font-size: 0.9rem;
       border: none;
       border-radius: 8px;
       background-color: #1976d2;
       color: white;
-      transition: background-color 0.2s;
+      transition: background-color 0.2s, transform 0.1s;
     }
     button:active {
       background-color: #004ba0;
+      transform: scale(0.98);
+    }
+    #feedback {
+      text-align: center;
+      font-size: 0.9rem;
+      color: green;
+      margin-top: 5px;
+      height: 1.2rem;
+    }
+    #clock {
+      text-align: center;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      color: #333;
     }
   </style>
 </head>
 <body>
   <h1>Intersection Counter</h1>
+  <div id="clock"></div>
+  <div id="feedback"></div>
 
   <div class="section">
     <h2>Church St (North Leg)</h2>
     <div class="button-grid">
-      <button onclick="sendData('Church Left Car')">Left Car</button>
-      <button onclick="sendData('Church Left Truck')">Left Truck</button>
-      <button onclick="sendData('Church Left Bike')">Left Bike</button>
-      <button onclick="sendData('Church Right Car')">Right Car</button>
-      <button onclick="sendData('Church Right Truck')">Right Truck</button>
-      <button onclick="sendData('Church Right Bike')">Right Bike</button>
+      <button onclick="sendData(this, 'Church Left Car')">Left Car</button>
+      <button onclick="sendData(this, 'Church Left Truck')">Left Truck</button>
+      <button onclick="sendData(this, 'Church Left Bike')">Left Bike</button>
+      <button onclick="sendData(this, 'Church Right Car')">Right Car</button>
+      <button onclick="sendData(this, 'Church Right Truck')">Right Truck</button>
+      <button onclick="sendData(this, 'Church Right Bike')">Right Bike</button>
     </div>
   </div>
 
   <div class="section">
     <h2>Bridge Rd (West Leg)</h2>
     <div class="button-grid">
-      <button onclick="sendData('Bridge Left Car')">Left Car</button>
-      <button onclick="sendData('Bridge Left Truck')">Left Truck</button>
-      <button onclick="sendData('Bridge Left Bike')">Left Bike</button>
-      <button onclick="sendData('Bridge Through Car')">Through Car</button>
-      <button onclick="sendData('Bridge Through Truck')">Through Truck</button>
-      <button onclick="sendData('Bridge Through Bike')">Through Bike</button>
+      <button onclick="sendData(this, 'Bridge Left Car')">Left Car</button>
+      <button onclick="sendData(this, 'Bridge Left Truck')">Left Truck</button>
+      <button onclick="sendData(this, 'Bridge Left Bike')">Left Bike</button>
+      <button onclick="sendData(this, 'Bridge Through Car')">Through Car</button>
+      <button onclick="sendData(this, 'Bridge Through Truck')">Through Truck</button>
+      <button onclick="sendData(this, 'Bridge Through Bike')">Through Bike</button>
     </div>
   </div>
 
   <div class="section">
     <h2>Burwood Rd (East Leg)</h2>
     <div class="button-grid">
-      <button onclick="sendData('Burwood Through Car')">Through Car</button>
-      <button onclick="sendData('Burwood Through Truck')">Through Truck</button>
-      <button onclick="sendData('Burwood Through Bike')">Through Bike</button>
+      <button onclick="sendData(this, 'Burwood Through Car')">Through Car</button>
+      <button onclick="sendData(this, 'Burwood Through Truck')">Through Truck</button>
+      <button onclick="sendData(this, 'Burwood Through Bike')">Through Bike</button>
     </div>
   </div>
 
   <div class="section">
     <h2>Pedestrians</h2>
     <div class="button-grid">
-      <button onclick="sendData('Pedestrian East')">East Leg</button>
-      <button onclick="sendData('Pedestrian West')">West Leg</button>
-      <button onclick="sendData('Pedestrian North')">North Leg</button>
+      <button onclick="sendData(this, 'Pedestrian East')">East Leg</button>
+      <button onclick="sendData(this, 'Pedestrian West')">West Leg</button>
+      <button onclick="sendData(this, 'Pedestrian North')">North Leg</button>
     </div>
   </div>
 
   <script>
     const scriptURL = "https://script.google.com/macros/s/AKfycbwxtxAdSMXRsOanJlcS-QkEJy00-NeEroaEuGe1RWHf-hOIIMTSK3Gh0WmQ4iW2DZsU7Q/exec";
 
-    function sendData(eventType) {
+    function sendData(button, eventType) {
       const data = {
         timestamp: new Date().toISOString(),
         event: eventType
       };
+
+      // Visual feedback
+      button.style.backgroundColor = '#2e7d32';
+      setTimeout(() => {
+        button.style.backgroundColor = '#1976d2';
+      }, 200);
+
+      document.getElementById("feedback").textContent = `Sent: ${eventType}`;
 
       fetch(scriptURL, {
         method: 'POST',
@@ -97,6 +130,14 @@
         }
       }).catch(err => console.error('Error:', err));
     }
+
+    // Live Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("clock").textContent = now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
   </script>
 </body>
 </html>
