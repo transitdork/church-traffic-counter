@@ -23,29 +23,30 @@
       font-size: 1.1rem;
     }
     .button-grid {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
       gap: 6px;
       justify-content: center;
     }
-    .button-grid.two-col button {
-      flex: 1 0 calc(50% - 12px);
-      max-width: calc(50% - 12px);
+    .two-col-three-row {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, auto);
     }
-    .button-grid.three-col button {
-      flex: 1 0 calc(33.333% - 12px);
-      max-width: calc(33.333% - 12px);
+    .three-col-one-row {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .three-col {
+      grid-template-columns: repeat(3, 1fr);
     }
     button {
-      padding: 20px;
+      padding: 10px;
       font-size: 0.9rem;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       background-color: #1976d2;
       color: white;
       transition: background-color 0.2s, transform 0.1s;
       text-align: center;
-      height: 80px;
+      height: 40px;
       width: 80px;
       display: flex;
       align-items: center;
@@ -77,43 +78,43 @@
 
   <div class="section">
     <h2>Church St (North Leg)</h2>
-    <div class="button-grid two-col">
-      <button onclick="sendData(this, 'Church Left Car')">Left Car</button>
-      <button onclick="sendData(this, 'Church Left Truck')">Left Truck</button>
-      <button onclick="sendData(this, 'Church Left Bike')">Left Bike</button>
-      <button onclick="sendData(this, 'Church Right Car')">Right Car</button>
-      <button onclick="sendData(this, 'Church Right Truck')">Right Truck</button>
-      <button onclick="sendData(this, 'Church Right Bike')">Right Bike</button>
+    <div class="button-grid two-col-three-row">
+      <button onclick="sendData(this, 'Church Left Car')">Car Left</button>
+      <button onclick="sendData(this, 'Church Right Car')">Car Right</button>
+      <button onclick="sendData(this, 'Church Left Truck')">Truck Left</button>
+      <button onclick="sendData(this, 'Church Right Truck')">Truck Right</button>
+      <button onclick="sendData(this, 'Church Left Bike')">Bike Left</button>
+      <button onclick="sendData(this, 'Church Right Bike')">Bike Right</button>
     </div>
   </div>
 
   <div class="section">
     <h2>Bridge Rd (West Leg)</h2>
-    <div class="button-grid two-col">
-      <button onclick="sendData(this, 'Bridge Left Car')">Left Car</button>
-      <button onclick="sendData(this, 'Bridge Left Truck')">Left Truck</button>
-      <button onclick="sendData(this, 'Bridge Left Bike')">Left Bike</button>
-      <button onclick="sendData(this, 'Bridge Through Car')">Through Car</button>
-      <button onclick="sendData(this, 'Bridge Through Truck')">Through Truck</button>
-      <button onclick="sendData(this, 'Bridge Through Bike')">Through Bike</button>
+    <div class="button-grid two-col-three-row">
+      <button onclick="sendData(this, 'Bridge Left Car')">Car Left</button>
+      <button onclick="sendData(this, 'Bridge Through Car')">Car Through</button>
+      <button onclick="sendData(this, 'Bridge Left Truck')">Truck Left</button>
+      <button onclick="sendData(this, 'Bridge Through Truck')">Truck Through</button>
+      <button onclick="sendData(this, 'Bridge Left Bike')">Bike Left</button>
+      <button onclick="sendData(this, 'Bridge Through Bike')">Bike Through</button>
     </div>
   </div>
 
   <div class="section">
     <h2>Burwood Rd (East Leg)</h2>
-    <div class="button-grid two-col">
-      <button onclick="sendData(this, 'Burwood Through Car')">Through Car</button>
-      <button onclick="sendData(this, 'Burwood Through Truck')">Through Truck</button>
-      <button onclick="sendData(this, 'Burwood Through Bike')">Through Bike</button>
+    <div class="button-grid three-col-one-row">
+      <button onclick="sendData(this, 'Burwood Through Car')">Car Through</button>
+      <button onclick="sendData(this, 'Burwood Through Truck')">Truck Through</button>
+      <button onclick="sendData(this, 'Burwood Through Bike')">Bike Through</button>
     </div>
   </div>
 
   <div class="section">
     <h2>Pedestrians</h2>
     <div class="button-grid three-col">
-      <button onclick="sendData(this, 'Pedestrian East')">East Leg</button>
       <button onclick="sendData(this, 'Pedestrian West')">West Leg</button>
       <button onclick="sendData(this, 'Pedestrian North')">North Leg</button>
+      <button onclick="sendData(this, 'Pedestrian East')">East Leg</button>
     </div>
   </div>
 
