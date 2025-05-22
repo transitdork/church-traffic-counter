@@ -11,14 +11,11 @@
       padding: 10px;
       background: #f5f5f5;
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 10px;
-    }
     .section {
       margin-bottom: 10px;
     }
     .section h2 {
+      margin-top: 2px;
       margin-bottom: 6px;
       font-size: 1.1rem;
     }
@@ -38,7 +35,7 @@
       grid-template-columns: repeat(3, 1fr);
     }
     button {
-      padding: 10px;
+      padding: 5px;
       font-size: 0.9rem;
       border: none;
       border-radius: 10px;
@@ -46,7 +43,7 @@
       color: white;
       transition: background-color 0.2s, transform 0.1s;
       text-align: center;
-      height: 40px;
+      height: 20px;
       width: 80px;
       display: flex;
       align-items: center;
@@ -66,13 +63,12 @@
     #clock {
       text-align: center;
       font-size: 1rem;
-      margin-bottom: 10px;
+      margin-bottom: 2px;
       color: #333;
     }
   </style>
 </head>
 <body>
-  <h1>Intersection Counter</h1>
   <div id="clock"></div>
   <div id="feedback"></div>
 
@@ -132,6 +128,11 @@
       setTimeout(() => {
         button.style.backgroundColor = '#1976d2';
       }, 200);
+
+      // Haptic feedback
+      if (navigator.vibrate) {
+        navigator.vibrate(30);
+      }
 
       document.getElementById("feedback").textContent = `Sent: ${eventType}`;
 
